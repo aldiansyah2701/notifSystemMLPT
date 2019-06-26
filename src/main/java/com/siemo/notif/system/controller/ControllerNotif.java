@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.siemo.notif.system.message.BaseResponse;
 import com.siemo.notif.system.message.GetAllDataResponse;
 import com.siemo.notif.system.message.GetDataRequest;
 import com.siemo.notif.system.message.SaveRequest;
+import com.siemo.notif.system.message.SendGroupRequest;
+import com.siemo.notif.system.message.SendRequest;
 import com.siemo.notif.system.service.ServiceNotif;
 
 @RestController
@@ -22,9 +25,8 @@ public class ControllerNotif {
 	
 	
 	@PostMapping("/save/device")
-	public String simpan(@RequestBody SaveRequest request){
-		
-		String response = serviceNotif.saveData(request);
+	public BaseResponse saveData(@RequestBody SaveRequest request){
+		BaseResponse response = serviceNotif.saveData(request);
 		return response;
 	}
 	
@@ -39,4 +41,23 @@ public class ControllerNotif {
 		GetAllDataResponse response = serviceNotif.getData(request);
 		return response;
 		}
+	
+	@PostMapping("send/one/customer")
+	public BaseResponse sendOne(@RequestBody SendRequest request) {
+		BaseResponse response = serviceNotif.sendOne(request);
+		return response;
 	}
+	
+	@PostMapping("send/group/customer")
+	public BaseResponse sendGroup(@RequestBody SendGroupRequest request) {
+		BaseResponse response = serviceNotif.sendGroup(request);
+		return response;
+	}
+	
+	@PostMapping("send/all/customer")
+	public BaseResponse sendAll() {
+		BaseResponse response = serviceNotif.sendAll();
+		return response;
+	}
+}
+		
