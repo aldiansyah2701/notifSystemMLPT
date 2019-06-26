@@ -1,6 +1,9 @@
 package com.siemo.notif.system.message;
 
 public class SaveRequest {
+	
+	
+	
 	public String userId;
 	public String tokenDevice;
 	public String channel;
@@ -20,11 +23,6 @@ public class SaveRequest {
 
 	public void setSystemOperasi(String systemOperasi) {
 		this.systemOperasi = systemOperasi;
-	}
-
-	public SaveRequest(String userId, String tokenDevice){
-		this.userId=userId;
-		this.tokenDevice=tokenDevice;
 	}
 
 	public String getUserId() {
