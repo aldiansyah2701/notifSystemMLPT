@@ -1,5 +1,6 @@
 package com.siemo.notif.system.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.siemo.notif.system.base.service.BaseBackendService;
 import com.siemo.notif.system.base.util.service.RestUtil;
 import com.siemo.notif.system.message.BaseResponse;
 import com.siemo.notif.system.message.GetAllDataResponse;
 import com.siemo.notif.system.message.GetDataRequest;
+import com.siemo.notif.system.message.Message;
+import com.siemo.notif.system.message.Recipients;
 import com.siemo.notif.system.message.SaveRequest;
 import com.siemo.notif.system.message.SendBatchRequest;
 import com.siemo.notif.system.message.SendGroupRequest;
@@ -71,17 +77,41 @@ public class ServiceNotifImpl implements ServiceNotif {
 
 	@Override
 	public BaseResponse sendOne(SendRequest request) {
+		
 		String uri = env.getProperty("batch.send.notification");
 		String inqUri = restUtil.generateURI(uri);
 		
 		SendBatchRequest inqRequest = new SendBatchRequest();
-		inqRequest.setEmail("aldi");
-		inqRequest.setKendaraan("rama");
-		inqRequest.setName("dlan");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			
+			inqRequest.setCustom_payload("{}");
+			inqRequest.setDeeplink("http://google.fr");
+			inqRequest.setGroup_id("batch_push_sender");
+			Message message = new com.siemo.notif.system.message.Message();
+			message.setBody("tes dari spring boot");
+			inqRequest.setMessage(message);
+			inqRequest.setPush_time("now");
+			
+			Recipients recipients = new Recipients();
+			List<String> data = new ArrayList<String>();
+			data.add("fWhihRGubNk:APA91bGAP-KN1xkqeYgHE8s3CD5awn4icASYzOt6eg2tNF4NmVQowSHI8Z0bbyzOA4WUFhjwEltKVTrG-HwZG74ZqaZcPkYzQ7DkMXFAzLL3196-vTNo5QzhTM-wcyZRVCUiFfTJchJm");
+			data.add("fxxdKe7sldk:APA91bHoZZYP1exoftloq0nre3hobotfIpSRsfkXpgmpwM6X1byB022nnP9sxOf4kUBp_106N-CRFZeeJEFZDrm91hECW9ox0heqGsM1ImmivFKh2FdvbIlmwrzqDSzNYlOXAmvGdFPr");
+			
+			recipients.setTokens(data);
+			inqRequest.setRecipients(recipients);
+			inqRequest.setSandbox(false);
+			String jsonRequest = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(inqRequest);
+			System.out.println(jsonRequest);
+			String json = jsonRequest;
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		ResponseEntity<SendBatchRequest> inqOmni_response = batchrest.postForEntity(inqUri, inqRequest, SendBatchRequest.class);
+		ResponseEntity<String> inqOmni_response = batchrest.postForEntity(inqUri, inqRequest, String.class);
 		HttpStatus inqHttpStatus = inqOmni_response.getStatusCode();
-		SendBatchRequest bodyOmniResponse = inqOmni_response.getBody();
+		String bodyOmniResponse = inqOmni_response.getBody();
 		
 		System.out.println(uri);
 		

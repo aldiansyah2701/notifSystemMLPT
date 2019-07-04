@@ -24,8 +24,17 @@ public class RestUtil {
 		return uriComponentsBuilder;
 	}
 	
+	private UriComponentsBuilder getURIbUILBuilderNoPort(){
+		String serviceHost = env.getProperty("batch.host");
+		
+		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
+        .scheme(env.getProperty("default.scheme"))
+        .host(serviceHost);
+		return uriComponentsBuilder;
+	}
+	
 	public String generateURI(String pathUri) {
-		UriComponentsBuilder uriBuilder = getURIbUILBuilder();
+		UriComponentsBuilder uriBuilder = getURIbUILBuilderNoPort();
 		String pathBase = env.getProperty("batch.base.path");
 		UriComponentsBuilder path = uriBuilder.path(pathBase+pathUri);
 		UriComponents build = path
