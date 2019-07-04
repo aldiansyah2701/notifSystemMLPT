@@ -12,7 +12,7 @@ import com.siemo.notif.system.aspect.AuditTrail;
 import com.siemo.notif.system.base.service.BaseBackendService;
 
 @SpringBootApplication
-@PropertySource(value="classpath:/config/rest.properties")
+@PropertySource(value = "classpath:/config/rest.properties")
 public class NotifSystemApplication {
 	
 	@Autowired
@@ -20,13 +20,14 @@ public class NotifSystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NotifSystemApplication.class, args);
-		
+
 	}
-	
+
 	@Bean(name = "auditTrail")
 	public AuditTrail auditTrail() {
 		return new AuditTrail();
 	}
+	
 	
 	@Bean(name = "batchrest")
 	public BaseBackendService getOmnirest(){

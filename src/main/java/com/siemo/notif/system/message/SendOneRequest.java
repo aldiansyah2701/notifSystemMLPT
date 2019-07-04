@@ -1,6 +1,6 @@
 package com.siemo.notif.system.message;
 
-public class SendRequest {
+public class SendOneRequest {
 	public String userId;
 	public String body;
 	

@@ -1,23 +1,25 @@
 package com.siemo.notif.system.message;
 
-import java.util.List;
+import java.util.Map;
 
 public class SendGroupRequest {
-	public String category;
-	public String body;
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
+	private String body;
+	private Map<String, Object> group;
+
 	public String getBody() {
 		return body;
 	}
+
 	public void setBody(String body) {
 		this.body = body;
 	}
-	
 
+	public Map<String, Object> getGroup() {
+		return group;
+	}
+
+	public void setGroup(Map<String, Object> group) {
+		this.group = group;
+	}
 
 }
