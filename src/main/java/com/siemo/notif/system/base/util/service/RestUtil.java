@@ -14,13 +14,24 @@ public class RestUtil {
 	@Autowired
 	private Environment env;
 	
+//	private UriComponentsBuilder getURIbUILBuilder(){
+//		String serviceHost = env.getProperty("batch.host");
+//		int servicePort = Integer.parseInt(env.getProperty("batch.port"));
+//		
+//		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
+//        .scheme(env.getProperty("default.scheme"))
+//        .host(serviceHost).port(servicePort);
+//		return uriComponentsBuilder;
+//	}
+
+	
 	private UriComponentsBuilder getURIbUILBuilder(){
 		String serviceHost = env.getProperty("batch.host");
-		int servicePort = Integer.parseInt(env.getProperty("batch.port"));
+//		int servicePort = Integer.parseInt(env.getProperty("batch.port"));
 		
 		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
         .scheme(env.getProperty("default.scheme"))
-        .host(serviceHost).port(servicePort);
+        .host(serviceHost);
 		return uriComponentsBuilder;
 	}
 	

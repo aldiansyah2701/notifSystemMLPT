@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.siemo.notif.system.message.BaseResponse;
 import com.siemo.notif.system.message.GetAllDataResponse;
 import com.siemo.notif.system.message.GetDataRequest;
+import com.siemo.notif.system.message.ManageDataUserRequest;
 import com.siemo.notif.system.message.SaveRequest;
 import com.siemo.notif.system.message.SendAllRequest;
 import com.siemo.notif.system.message.SendGroupRequest;
@@ -38,6 +39,12 @@ public class ControllerNotif {
 	@PostMapping("get/data")
 	public GetAllDataResponse getData(@RequestBody GetDataRequest request) {
 		GetAllDataResponse response = serviceNotif.getData(request);
+		return response;
+	}
+	
+	@PostMapping("update/device")
+	public BaseResponse manageDataUser(@RequestBody ManageDataUserRequest request) {
+		BaseResponse response = serviceNotif.manageDataUser(request);
 		return response;
 	}
 
